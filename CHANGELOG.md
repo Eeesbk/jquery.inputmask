@@ -4,27 +4,42 @@ All notable changes to this project will be documented in this file.
 ## [Unreleased]
 
 ### Added
+- mac address alias #986
+- tabThrough option - Tab and autoselect mask parts #433
+- eslint testing in grunt validate task
+- $.fn.inputmask("setvalue", value)
+- jquery.clone support (also see $.fn.inputmask("setvalue", value))
 - hexadecimal definition (# in inputmask.extensions.js)
 - positionCaretOnTab option
-- inputmask.unmask
+- Inputmask.unmask
 - numeric alias - increment/decrement by ctrl-up/ctrl-down
 - numeric alias - round values
 - percentage alias
-- inputmask class
+- Inputmask class
 - setting defaults / definitions / aliases
-  - inputmask.extendDefaults
-  - inputmask.extendDefinitions
-  - inputmask.extendAliases
+  - Inputmask.extendDefaults
+  - Inputmask.extendDefinitions
+  - Inputmask.extendAliases
 
 ### Updates
+- enhance caret positioning behavior & radicFocus
 - change alfanumeric uppercase definition from # to &
 - numericInput option also possible on dynamic-masks
-- remove $.inputmask in favor of inputmask class
+- remove $.inputmask in favor of Inputmask class
 - remove "jquery." in the naming of the extensions to better reflect their denpendency
 - separate jquery plugin code from the inputmask core (first step to remove jquery dependency from the inputmask core)
 - Update placeholder handling
 
 ### Fixed
+- Money question #644
+- Decimal numbers with fixed decimal part #990
+- Focus loop on IE9 with numeric.extensions #989
+- Numeric inputs with default value are setted to blank when submit the form #983
+- Default Enter key function getting lost on an input mask text field #938
+- Add JSHint and JSCS #879 => used eslint instead
+- On google chrome, cannot use jquery to clone the inputmask control with data and events #713
+- Cannot overwrite characters when highlighting the characters to the right of the decimal #974
+- Decimal mask accepts "123,456." (RadixPoint with no number after it) #973
 - Make numericInput work with complex masks #963
 - Auto position cursor at end of data on focus #965
 - Decimal separator conversion #919

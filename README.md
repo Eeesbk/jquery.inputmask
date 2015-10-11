@@ -67,7 +67,7 @@ $(document).ready(function(){
 });
 ```
 
-Any option can also be passed through the use of a data attribute. Use data-inputmask-<**_the name op the option_**>="value"
+Any option can also be passed through the use of a data attribute. Use data-inputmask-<**_the name of the option_**>="value"
 
 ```html
 <input id="example1" data-inputmask-clearmaskonlostfocus="false" />
@@ -90,7 +90,7 @@ $(document).ready(function(){
 ### Default masking definitions
 - 9 : numeric
 - a : alphabetical
-- * : alphanumeric
+  - : alphanumeric
 
 There are more definitions defined within the extensions.<br>You can find info within the js-files or by further exploring the options.
 
@@ -248,7 +248,7 @@ The prevalidator option is used to validate the characters before the definition
 When you insert or delete characters, they are only shifted when the definition type is the same.  This behavior can be overridden by giving a definitionSymbol. (see example x, y, z, which can be used for ip-address masking, the validation is different, but it is allowed to shift the characters between the definitions)
 
 ```javascript
-inputmask.extendDefinitions({
+Inputmask.extendDefinitions({
     'f': {  //masksymbol
         "validator": "[0-9\(\)\.\+/ ]",
         "cardinality": 1,
@@ -301,10 +301,10 @@ Specify a placeholder for a definition.
 Defaults can be set as below.
 
 ```javascript
-inputmask.extendDefaults({
+Inputmask.extendDefaults({
     'autoUnmask': true
 });
-inputmask.extendDefinitions({
+Inputmask.extendDefinitions({
   'A': {
     validator: "[A-Za-z\u0410-\u044F\u0401\u0451\u00C0-\u00FF\u00B5]",
     cardinality: 1,
@@ -316,7 +316,7 @@ inputmask.extendDefinitions({
     casing: "upper"
   }
 });
-inputmask.extendAliases({
+Inputmask.extendAliases({
   'Regex': {
     mask: "r",
     greedy: false,
@@ -328,7 +328,7 @@ inputmask.extendAliases({
 But if the property is defined within an alias you need to set it for the alias definition.
 
 ```javascript
-inputmask.extendAliases({
+Inputmask.extendAliases({
   'numeric' : {
     allowPlus: false,
     allowMinus: false
@@ -338,7 +338,7 @@ inputmask.extendAliases({
 However, the preferred way to alter properties for an alias is by creating a new alias which inherits from the default alias definition.
 
 ```javascript
-inputmask.extendAliases({
+Inputmask.extendAliases({
     'myNum': {
             alias: "numeric",
             placeholder: '',
@@ -686,8 +686,12 @@ typing 1212345123 => should result in +55-12-1234-5123 type extra 4 => switch to
 When passing multiple masks (an array of masks) keepStatic is automatically set to true unless explicitly set through the options.
 
 ### positionCaretOnTab
-
 When enabled the caret position is set after the latest valid position on TAB
+Default: false
+
+### tabThrough
+Allows for tabbing through the different parts of the masked field.  
+Default: false
 
 ### definitions
 ### ignorables
@@ -711,6 +715,14 @@ Hook to postValidate the result from isValid.  Usefull for validating the entry 
 
 ## Functions
 ### mask
+Create a mask for the input.
+
+```javascript
+$(document).ready(function(){
+   $(selector).inputmask('mask', { mask: "99-999-99"});
+});
+```
+
 ### unmaskedvalue
 Get the unmaskedvalue
 
@@ -772,6 +784,9 @@ The metadata of the actual mask provided in the mask definitions can be obtained
 $(selector).inputmask("getmetadata");
 ```
 
+### setvalue
+The setvalue functionality is to set a value to the inputmask like you would do with jQuery.val, BUT it will trigger the internal event used by the inputmask always, whatever the case. This is particular usefull when cloning an inputmask with jQuery.clone.  Cloning an inputmask is not a fully functional clone.  On the first event (mouseenter, focus, ...) the inputmask can detect if it where cloned an can reactivate the masking.  However when setting the value with jQuery.val there is none of the events triggered.  The setvalue functionality does this for you.
+
 ## General
 ### set a value and apply mask
 this can be done with the traditional jquery.val function (all browsers) or JavaScript value property for browsers which implement lookupGetter or getOwnPropertyDescriptor
@@ -809,7 +824,7 @@ $(document).ready(function(){
 You can define within a definition to automatically lowercase or uppercase the entry in an input by giving the casing.<br>Casing can be null, "upper" or "lower"
 
 ```javascript
-    inputmask.extendDefinitions({
+   Inputmask.extendDefinitions({
         'A': {
             validator: "[A-Za-z]",
             cardinality: 1,
@@ -887,30 +902,32 @@ $(document).ready(function(){
 Instead of masking an input element it is also possible to use the inputmask for formatting given values. Think of formatting values to show in jqGrid or on other elements then inputs.
 
 ```javascript
-var formattedDate = inputmask.format("2331973", { alias: "dd/mm/yyyy"});
+var formattedDate =Inputmask.format("2331973", { alias: "dd/mm/yyyy"});
 ```
 
 ## Value unmasking
 Unmask a given value against the mask.
 
 ```javascript
-var unformattedDate = inputmask.unmask("23/03/1973", { alias: "dd/mm/yyyy"}); //23031973
+var unformattedDate =Inputmask.unmask("23/03/1973", { alias: "dd/mm/yyyy"}); //23031973
 ```
 
 ## Value validating
 Validate a given value against the mask.
 
 ```javascript
-var isValid = inputmask.isValid("23/03/1973", { alias: "dd/mm/yyyy"});
+var isValid =Inputmask.isValid("23/03/1973", { alias: "dd/mm/yyyy"});
 ```
 
-# jquery.inputmask extensions
+## jQuery.clone
+When cloning a inputmask, the inputmask reactivates on the first event (mouseenter, focus, ...) that happens to the input. If you want to set a value on the cloned inputmask and you want to directly reactivate the masking you have to use $(input).inputmask("setvalue", value)
 
-###[date & datetime extensions](README_date.md)
-###[numeric extensions](README_numeric.md)
-###[regex extensions](README_regex.md)
-###[phone extensions](README_phone.md)
-###[other extensions](README_other.md)
+# jquery.inputmask extensions
+## [date & datetime extensions](README_date.md)
+## [numeric extensions](README_numeric.md)
+## [regex extensions](README_regex.md)
+## [phone extensions](README_phone.md)
+## [other extensions](README_other.md)
 
 [npm-url]: https://npmjs.org/package/jquery.inputmask
 [npm-image]: https://img.shields.io/npm/v/jquery.inputmask.svg
